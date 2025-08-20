@@ -1,9 +1,9 @@
 # 📅 Timeline 15 วัน (Note Website - Text Only)
 ## Phase 1: Setup & Design (Day 1–3)
 
-- [x] Day 1: สร้างโปรเจกต์ (Vite + React + Tailwind)
+- ✅ Day 1: สร้างโปรเจกต์ (Vite + React + Tailwind)
 
-- [x] Day 2: ออกแบบโครงสร้างโปรเจกต์ + UI Wireframe (Header, SearchBar, NoteCard, NoteForm)
+- ✅ Day 2: ออกแบบโครงสร้างโปรเจกต์ + UI Wireframe (Header, SearchBar, NoteCard, NoteForm)
 
 - [ ] Day 3: เขียนโครงหลัก App.jsx, NotesPage.jsx, ติดตั้ง Tailwind Base
 
