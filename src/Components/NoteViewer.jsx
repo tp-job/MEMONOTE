@@ -121,26 +121,44 @@ export default function NoteViewer({ note, onEdit, onDelete }) {
     );
 
     const renderLinkSection = () => (
-        note.link && (
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                        <h3 className="text-sm font-medium text-blue-900 mb-1">Related Link</h3>
-                        <p className="text-sm text-blue-700 truncate">{note.link}</p>
+    note.link && (
+        <div className="group mt-6 p-5 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl border border-blue-100/60 shadow-sm hover:shadow-md transition-all duration-300 backdrop-blur-sm">
+            <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                        <h3 className="text-sm font-semibold text-gray-700 tracking-wide uppercase">
+                            Related Link
+                        </h3>
                     </div>
-                    <button
-                        onClick={() => handleLinkClick(note.link)}
-                        className="ml-4 px-3 py-1.5 text-sm font-medium text-blue-700 bg-blue-100 border border-blue-300 rounded-md hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 flex items-center"
-                    >
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    <div className="flex items-center gap-2 text-blue-700">
+                        <svg className="w-4 h-4 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.102m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                         </svg>
-                        Open
-                    </button>
+                        <p className="text-sm font-medium truncate hover:text-blue-800 transition-colors duration-200">
+                            {note.link}
+                        </p>
+                    </div>
                 </div>
+                
+                <button
+                    onClick={() => handleLinkClick(note.link)}
+                    className="flex-shrink-0 group/btn inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-500/25 transform hover:scale-105 transition-all duration-300 active:scale-95"
+                >
+                    <svg className="w-4 h-4 group-hover/btn:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    <span className="group-hover/btn:translate-x-0.5 transition-transform duration-300">
+                        Open
+                    </span>
+                </button>
             </div>
-        )
-    );
+            
+            {/* Decorative elements */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+        </div>
+    )
+);
 
     return (
         <div className="flex-1 flex flex-col">
