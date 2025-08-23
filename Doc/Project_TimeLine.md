@@ -5,15 +5,15 @@
 
 - ✅ Day 2: ออกแบบโครงสร้างโปรเจกต์ + UI Wireframe (Header, SearchBar, NoteCard, NoteForm)
 
-- [ ] Day 3: เขียนโครงหลัก App.jsx, NotesPage.jsx, ติดตั้ง Tailwind Base
+- ✅ Day 3: เขียนโครงหลัก App.jsx, NotesPage.jsx, ติดตั้ง Tailwind Base
 
 ## Phase 2: Core Features (Day 4–8)
 
-- [ ] Day 4: ทำ NoteCard.jsx → UI แสดง Title + Content
+- ✅ Day 4: ทำ NoteCard.jsx → UI แสดง Title + Content
 
-- [ ] Day 5: ทำ NoteForm.jsx → ฟอร์มเพิ่มโน้ต
+- ✅ Day 5: ทำ NoteForm.jsx → ฟอร์มเพิ่มโน้ต
 
-- [ ] Day 6: เพิ่มฟีเจอร์ แก้ไขโน้ต
+- ✅ Day 6: เพิ่มฟีเจอร์ แก้ไขโน้ต
 
 - [ ] Day 7: เพิ่มฟีเจอร์ ลบโน้ต
 
