@@ -15,7 +15,7 @@
 
 - ✅ Day 6: เพิ่มฟีเจอร์ แก้ไขโน้ต
 
-- [ ] Day 7: เพิ่มฟีเจอร์ ลบโน้ต
+- ✅ Day 7: เพิ่มฟีเจอร์ ลบโน้ต
 
 - [ ] Day 8: เขียน useLocalStorage.js + เชื่อม CRUD Notes กับ LocalStorage
 
