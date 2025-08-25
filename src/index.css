@@ -43,8 +43,21 @@ html {
     background: #94a3b8;
 }
 
+/* Dark theme scrollbar */
+.dark ::-webkit-scrollbar-track {
+    background: #1e202c;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #31323e;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #60519b;
+}
+
 @theme {
-    /* color */
+    /* Light theme colors */
     --color-deep-night: #1e202c;
     --color-charcoal-grey: #31323e;
     --color-lush-violet: #60519b;
@@ -54,5 +67,23 @@ html {
     --color-lush-peach: #ff5e57;
     --color-misty-peach: #f27272;
 
-    /* color dark */
+    /* Light theme backgrounds and surfaces */
+    --color-light-bg: #ffffff;
+    --color-light-surface: #f8fafc;
+    --color-light-surface-2: #f1f5f9;
+    --color-light-text: #1e202c;
+    --color-light-text-secondary: #64748b;
+    --color-light-border: #e2e8f0;
+    --color-light-accent: #60519b;
+    --color-light-accent-hover: #8d84d0;
+
+    /* Dark theme colors */
+    --color-dark-bg: #1e202c;
+    --color-dark-surface: #31323e;
+    --color-dark-surface-2: #4a4b57;
+    --color-dark-text: #f8fafc;
+    --color-dark-text-secondary: #bfc0d1;
+    --color-dark-border: #4a4b57;
+    --color-dark-accent: #8d84d0;
+    --color-dark-accent-hover: #b9bbe8;
 }

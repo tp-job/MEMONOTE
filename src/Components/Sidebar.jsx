@@ -11,31 +11,33 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
     const getFilterButtonClass = (filterId) => {
         const baseClass = "w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors duration-150";
         return activeFilter === filterId
-            ? `${baseClass} bg-teal-50 text-teal-700`
-            : `${baseClass} text-gray-700 hover:bg-gray-50`;
+            ? `${baseClass} bg-lush-violet/10 dark:bg-lush-violet/20 text-lush-violet dark:text-velvet-violet`
+            : `${baseClass} text-light-text dark:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2`;
     };
 
     const getCountBadgeClass = (filterId) => {
         const baseClass = "text-xs px-2 py-1 rounded-full";
         return activeFilter === filterId
-            ? `${baseClass} bg-teal-100 text-teal-700`
-            : `${baseClass} bg-gray-100 text-gray-600`;
+            ? `${baseClass} bg-lush-violet/20 dark:bg-lush-violet/30 text-lush-violet dark:text-velvet-violet`
+            : `${baseClass} bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary`;
     };
 
     const getTagButtonClass = (tag) => {
         const baseClass = "w-full flex items-center px-3 py-2 rounded-lg text-left transition-colors duration-150";
         return activeFilter === tag
-            ? `${baseClass} bg-purple-50 text-purple-700`
-            : `${baseClass} text-gray-700 hover:bg-gray-50`;
+            ? `${baseClass} bg-elegant-violet/10 dark:bg-elegant-violet/20 text-lush-violet dark:text-velvet-violet`
+            : `${baseClass} text-light-text dark:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2`;
     };
 
     const getTagColor = (tag) => {
         const colorMap = {
-            'Personal': 'bg-orange-400',
-            'Work': 'bg-purple-400',
-            'Friends': 'bg-green-400'
+            'Personal': 'bg-lush-peach',
+            'Work': 'bg-lush-violet',
+            'Friends': 'bg-velvet-violet',
+            'Ideas': 'bg-elegant-violet',
+            'Important': 'bg-misty-peach'
         };
-        return colorMap[tag] || 'bg-gray-400';
+        return colorMap[tag] || 'bg-misty-lavender';
     };
 
     // Render helpers
@@ -69,7 +71,7 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
 
     const renderFilters = () => (
         <div className="p-4">
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Filters</h3>
+            <h3 className="text-sm font-medium text-light-text dark:text-dark-text mb-3 transition-colors duration-300">Filters</h3>
             <div className="space-y-1">
                 {filters.map(renderFilterButton)}
             </div>
@@ -77,9 +79,9 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
     );
 
     const renderTags = () => (
-        tags.length > 0 && (
-            <div className="p-4 border-t border-gray-200">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">Tags</h3>
+        tags && tags.length > 0 && (
+            <div className="p-4 border-t border-light-border dark:border-dark-border">
+                <h3 className="text-sm font-medium text-light-text dark:text-dark-text mb-3 transition-colors duration-300">Tags</h3>
                 <div className="space-y-1">
                     {tags.map(renderTagButton)}
                 </div>
@@ -88,10 +90,10 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
     );
 
     const renderStatus = () => (
-        <div className="p-4 border-t border-gray-200">
-            <div className="text-xs text-gray-500">
+        <div className="p-4 border-t border-light-border dark:border-dark-border">
+            <div className="text-xs text-light-text-secondary dark:text-dark-text-secondary">
                 <div className="flex items-center">
-                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                    <div className="w-2 h-2 bg-velvet-violet rounded-full mr-2"></div>
                     Ready
                 </div>
             </div>
@@ -99,7 +101,7 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
     );
 
     return (
-        <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <div className="w-64 bg-light-surface dark:bg-dark-surface border-r border-light-border dark:border-dark-border flex flex-col transition-colors duration-300">
             {/* Filters */}
             <div className="flex-1 overflow-y-auto">
                 {renderFilters()}

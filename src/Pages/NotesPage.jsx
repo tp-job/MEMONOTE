@@ -104,41 +104,41 @@ const NotesPage = () => {
 
         if (filteredNotes.length === 0) {
             return (
-                <div className="p-8 text-center text-gray-500">
+                <div className="p-8 text-center text-light-text-secondary dark:text-dark-text-secondary">
                     <p>No notes found</p>
                 </div>
             );
         }
 
         return (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-light-border dark:divide-dark-border">
                 {filteredNotes.map((note) => (
                     <div
                         key={note.id}
                         onClick={() => handleNoteSelect(note)}
-                        className={`p-4 cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
-                            selectedNote?.id === note.id ? 'bg-blue-50 border-r-2 border-blue-500' : ''
+                        className={`p-4 cursor-pointer hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 transition-colors duration-150 ${
+                            selectedNote?.id === note.id ? 'bg-lush-violet/10 dark:bg-lush-violet/20 border-r-2 border-lush-violet dark:border-velvet-violet' : ''
                         }`}
                     >
                         <div className="flex items-start justify-between mb-2">
-                            <h3 className="font-medium text-gray-900 line-clamp-1 flex-1">
+                            <h3 className="font-medium text-light-text dark:text-dark-text line-clamp-1 flex-1">
                                 {note.title}
                             </h3>
                             <div className="flex items-center space-x-1 ml-2">
                                 {note.link && (
-                                    <span className="text-blue-500" title="Has link">
+                                    <span className="text-lush-violet dark:text-velvet-violet" title="Has link">
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                                         </svg>
                                     </span>
                                 )}
-                                <span className="text-xs text-gray-400">
+                                <span className="text-xs text-light-text-secondary dark:text-dark-text-secondary">
                                     {new Date(note.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </span>
                             </div>
                         </div>
 
-                        <p className="text-sm text-gray-600 line-clamp-2 mb-2">
+                        <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary line-clamp-2 mb-2">
                             {note.content}
                         </p>
 
@@ -148,7 +148,7 @@ const NotesPage = () => {
                                     {note.tag.split(',').map((tag, index) => (
                                         <span 
                                             key={index}
-                                            className="inline-block px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full"
+                                            className="inline-block px-2 py-1 text-xs font-medium bg-lush-violet/10 dark:bg-lush-violet/20 text-lush-violet dark:text-velvet-violet rounded-full"
                                         >
                                             {tag.trim()}
                                         </span>
@@ -156,7 +156,7 @@ const NotesPage = () => {
                                 </div>
                             )}
                             {note.link && (
-                                <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                                <span className="inline-block px-2 py-1 text-xs font-medium bg-velvet-violet/10 dark:bg-velvet-violet/20 text-velvet-violet dark:text-elegant-violet rounded-full">
                                     Link
                                 </span>
                             )}
@@ -168,21 +168,21 @@ const NotesPage = () => {
     };
 
     const renderEmptyState = () => (
-        <div className="flex-1 flex items-center justify-center text-gray-500">
+        <div className="flex-1 flex items-center justify-center text-light-text-secondary dark:text-dark-text-secondary">
             <div className="text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-light-surface-2 dark:bg-dark-surface-2 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-light-text-secondary dark:text-dark-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                 </div>
-                <h3 className="text-lg font-medium mb-2">Select a note</h3>
+                <h3 className="text-lg font-medium mb-2 text-light-text dark:text-dark-text">Select a note</h3>
                 <p>Choose a note from the list to view its content</p>
             </div>
         </div>
     );
 
     return (
-        <div className="h-screen bg-gray-50 flex flex-col">
+        <div className="h-screen bg-light-surface dark:bg-dark-bg flex flex-col transition-colors duration-300">
             <Header onAdd={handleAddNote} />
 
             <div className="flex-1 flex overflow-hidden">
@@ -197,8 +197,8 @@ const NotesPage = () => {
                 />
 
                 {/* Middle Panel - Note List */}
-                <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
-                    <div className="p-4 border-b border-gray-200">
+                <div className="w-80 bg-light-surface dark:bg-dark-surface border-r border-light-border dark:border-dark-border flex flex-col transition-colors duration-300">
+                    <div className="p-4 border-b border-light-border dark:border-dark-border">
                         <SearchBar
                             search={searchQuery}
                             setSearch={setSearchQuery}
@@ -211,7 +211,7 @@ const NotesPage = () => {
                 </div>
 
                 {/* Right Panel - Note Content */}
-                <div className="flex-1 bg-white flex flex-col">
+                <div className="flex-1 bg-light-surface dark:bg-dark-surface flex flex-col transition-colors duration-300">
                     {selectedNote ? (
                         <NoteViewer
                             note={selectedNote}

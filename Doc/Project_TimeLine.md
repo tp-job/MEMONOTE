@@ -17,7 +17,7 @@
 
 - ✅ Day 7: เพิ่มฟีเจอร์ ลบโน้ต
 
-- [ ] Day 8: เขียน useLocalStorage.js + เชื่อม CRUD Notes กับ LocalStorage
+- ✅ Day 8: เขียน useLocalStorage.js + เชื่อม CRUD Notes กับ LocalStorage
 
 ## Phase 3: Extra & UI Polish (Day 9–12)
 
