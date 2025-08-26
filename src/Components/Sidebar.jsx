@@ -1,4 +1,6 @@
-export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks, notesWithTags }) {
+import { useState, useEffect } from 'react';
+
+const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks, notesWithTags }) => {
     // Filter configuration
     const filters = [
         { id: 'all', label: 'All Notes', count: noteCount },
@@ -89,12 +91,22 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
         )
     );
 
+    const [time, setTime] = useState(new Date());
+    
+        useEffect(() => {
+            const timer = setInterval(() => {
+                setTime(new Date());
+            }, 1000);
+            return () => clearInterval(timer);
+        }, []);
+    
     const renderStatus = () => (
         <div className="p-4 border-t border-light-border dark:border-dark-border">
             <div className="text-xs text-light-text-secondary dark:text-dark-text-secondary">
                 <div className="flex items-center">
                     <div className="w-2 h-2 bg-velvet-violet rounded-full mr-2"></div>
                     Ready
+                    <div className="ml-4">{time.toLocaleTimeString()}</div>
                 </div>
             </div>
         </div>
@@ -112,3 +124,5 @@ export default function Sidebar({ activeFilter, onFilterChange, noteCount, tags,
         </div>
     );
 }
+
+export default Sidebar;

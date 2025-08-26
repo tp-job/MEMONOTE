@@ -1,6 +1,6 @@
 import { formatDate } from "../Utils/dateFormat";
 
-export default function NoteViewer({ note, onEdit, onDelete }) {
+const NoteViewer = ({ note, onEdit, onDelete }) => {
     // Helper functions
     const parseTags = (tagString) => {
         if (!tagString || !tagString.trim()) return [];
@@ -192,3 +192,5 @@ export default function NoteViewer({ note, onEdit, onDelete }) {
         </div>
     );
 }
+
+export default NoteViewer;

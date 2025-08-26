@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function NoteForm({ note, onSave, onCancel }) {
+const NoteForm = ({ note, onSave, onCancel }) => {
     // Form state
     const [formData, setFormData] = useState({
         title: "",
@@ -61,9 +61,9 @@ export default function NoteForm({ note, onSave, onCancel }) {
     // Render helpers
     const renderInputField = (field, label, type = "text", placeholder = "", rows = null, icon = null) => (
         <div className="group">
-            <label htmlFor={field} className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3 tracking-wide">
+            <label htmlFor={field} className="flex items-center gap-2 text-sm font-semibold text-light-text dark:text-dark-text mb-3 tracking-wide">
                 {icon && (
-                    <div className="w-4 h-4 text-gray-500 group-focus-within:text-indigo-500 transition-colors duration-200">
+                    <div className="w-4 h-4 text-light-text-secondary dark:text-dark-text-secondary group-focus-within:text-lush-violet dark:group-focus-within:text-velvet-violet transition-colors duration-200">
                         {icon}
                     </div>
                 )}
@@ -76,7 +76,7 @@ export default function NoteForm({ note, onSave, onCancel }) {
                     onChange={(e) => handleInputChange(field, e.target.value)}
                     placeholder={placeholder}
                     rows={rows}
-                    className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300 resize-none text-gray-700 placeholder:text-gray-400 hover:border-gray-300"
+                    className="w-full px-4 py-3 bg-light-surface-2 dark:bg-dark-surface-2 border-2 border-light-border dark:border-dark-border rounded-xl focus:outline-none focus:bg-light-surface dark:focus:bg-dark-surface focus:border-lush-violet dark:focus:border-velvet-violet focus:ring-4 focus:ring-lush-violet/10 dark:focus:ring-velvet-violet/10 transition-all duration-300 resize-none text-light-text dark:text-dark-text placeholder:text-light-text-secondary dark:placeholder:text-dark-text-secondary hover:border-light-accent dark:hover:border-dark-accent"
                 />
             ) : (
                 <input
@@ -85,15 +85,15 @@ export default function NoteForm({ note, onSave, onCancel }) {
                     value={formData[field]}
                     onChange={(e) => handleInputChange(field, e.target.value)}
                     placeholder={placeholder}
-                    className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300 text-gray-700 placeholder:text-gray-400 hover:border-gray-300"
+                    className="w-full px-4 py-3 bg-light-surface-2 dark:bg-dark-surface-2 border-2 border-light-border dark:border-dark-border rounded-xl focus:outline-none focus:bg-light-surface dark:focus:bg-dark-surface focus:border-lush-violet dark:focus:border-velvet-violet focus:ring-4 focus:ring-lush-violet/10 dark:focus:ring-velvet-violet/10 transition-all duration-300 text-light-text dark:text-dark-text placeholder:text-light-text-secondary dark:placeholder:text-dark-text-secondary hover:border-light-accent dark:hover:border-dark-accent"
                 />
             )}
         </div>
     );
 
     const renderTagHelpText = () => (
-        <div className="flex items-center gap-2 mt-2 text-xs text-gray-500 bg-blue-50 px-3 py-2 rounded-lg border border-blue-100">
-            <svg className="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="flex items-center gap-2 mt-2 text-xs text-light-text-secondary dark:text-dark-text-secondary bg-lush-violet/10 dark:bg-lush-violet/20 px-3 py-2 rounded-lg border border-lush-violet/20 dark:border-lush-violet/30">
+            <svg className="w-3 h-3 text-lush-violet dark:text-velvet-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>Separate multiple tags with commas (e.g., "sci, math, work")</span>
@@ -101,11 +101,11 @@ export default function NoteForm({ note, onSave, onCancel }) {
     );
 
     const renderFormActions = () => (
-        <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gradient-to-r from-transparent via-gray-200 to-transparent">
+        <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gradient-to-r from-transparent via-light-border dark:via-dark-border to-transparent">
             <button
                 type="button"
                 onClick={handleCancel}
-                className="group px-6 py-3 text-sm font-medium text-gray-600 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95"
+                className="group px-6 py-3 text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary bg-light-surface dark:bg-dark-surface border-2 border-light-border dark:border-dark-border rounded-xl hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 hover:border-light-accent dark:hover:border-dark-accent focus:outline-none focus:ring-4 focus:ring-light-accent/20 dark:focus:ring-dark-accent/20 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95"
             >
                 <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -114,7 +114,7 @@ export default function NoteForm({ note, onSave, onCancel }) {
             </button>
             <button
                 type="submit"
-                className="group px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 border-2 border-transparent rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 hover:scale-105 active:scale-95"
+                className="group px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-lush-violet to-velvet-violet border-2 border-transparent rounded-xl hover:from-velvet-violet hover:to-elegant-violet focus:outline-none focus:ring-4 focus:ring-lush-violet/30 dark:focus:ring-velvet-violet/30 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 hover:scale-105 active:scale-95"
             >
                 <svg className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -125,10 +125,10 @@ export default function NoteForm({ note, onSave, onCancel }) {
     );
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 p-4 animate-in fade-in duration-300">
-            <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden border border-white/20 animate-in slide-in-from-bottom-4 duration-500">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 p-4">
+            <div className="bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden border border-light-border/20 dark:border-dark-border/20">
                 {/* Header with gradient */}
-                <div className="relative px-8 py-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                <div className="relative px-8 py-6 bg-gradient-to-r from-lush-violet via-velvet-violet to-elegant-violet">
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="relative flex items-center justify-between">
                         <h2 className="text-2xl font-bold text-white flex items-center gap-3">
@@ -186,3 +186,5 @@ export default function NoteForm({ note, onSave, onCancel }) {
         </div>
     );
 }
+
+export default NoteForm;

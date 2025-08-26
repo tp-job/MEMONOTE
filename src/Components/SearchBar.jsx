@@ -1,4 +1,4 @@
-export default function SearchBar({ search, setSearch }) {
+const SearchBar = ({ search, setSearch }) => {
     return (
         <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -16,3 +16,5 @@ export default function SearchBar({ search, setSearch }) {
         </div>
     );
 }
+
+export default SearchBar;

@@ -21,7 +21,7 @@
 
 ## Phase 3: Extra & UI Polish (Day 9–12)
 
-- [ ] Day 9: ทำ SearchBar.jsx → ค้นหาโน้ตด้วย Title/Content
+- ✅ Day 9: ทำ SearchBar.jsx → ค้นหาโน้ตด้วย Title/Content
 
 - [ ] Day 10: ปรับ UI Responsive (มือถือ/PC)
 
