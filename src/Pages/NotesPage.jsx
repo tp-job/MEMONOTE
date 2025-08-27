@@ -121,15 +121,13 @@ const NotesPage = () => {
                         }`}
                     >
                         <div className="flex items-start justify-between mb-2">
-                            <h3 className="font-medium text-light-text dark:text-dark-text line-clamp-1 flex-1">
+                            <h3 className="flex-1 font-medium text-light-text dark:text-dark-text line-clamp-1">
                                 {note.title}
                             </h3>
-                            <div className="flex items-center space-x-1 ml-2">
+                            <div className="flex items-center ml-2 space-x-1">
                                 {note.link && (
                                     <span className="text-lush-violet dark:text-velvet-violet" title="Has link">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                                        </svg>
+                                        <i class="ri-links-line"></i>
                                     </span>
                                 )}
                                 <span className="text-xs text-light-text-secondary dark:text-dark-text-secondary">
@@ -138,7 +136,7 @@ const NotesPage = () => {
                             </div>
                         </div>
 
-                        <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary line-clamp-2 mb-2">
+                        <p className="mb-2 text-sm text-light-text-secondary dark:text-dark-text-secondary line-clamp-2">
                             {note.content}
                         </p>
 
@@ -148,7 +146,7 @@ const NotesPage = () => {
                                     {note.tag.split(',').map((tag, index) => (
                                         <span 
                                             key={index}
-                                            className="inline-block px-2 py-1 text-xs font-medium bg-lush-violet/10 dark:bg-lush-violet/20 text-lush-violet dark:text-velvet-violet rounded-full"
+                                            className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-lush-violet/10 dark:bg-lush-violet/20 text-lush-violet dark:text-velvet-violet"
                                         >
                                             {tag.trim()}
                                         </span>
@@ -156,7 +154,7 @@ const NotesPage = () => {
                                 </div>
                             )}
                             {note.link && (
-                                <span className="inline-block px-2 py-1 text-xs font-medium bg-velvet-violet/10 dark:bg-velvet-violet/20 text-velvet-violet dark:text-elegant-violet rounded-full">
+                                <span className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-velvet-violet/10 dark:bg-velvet-violet/20 text-velvet-violet dark:text-elegant-violet">
                                     Link
                                 </span>
                             )}
@@ -168,24 +166,24 @@ const NotesPage = () => {
     };
 
     const renderEmptyState = () => (
-        <div className="flex-1 flex items-center justify-center text-light-text-secondary dark:text-dark-text-secondary">
+        <div className="flex items-center justify-center flex-1 text-light-text-secondary dark:text-dark-text-secondary">
             <div className="text-center">
-                <div className="w-16 h-16 bg-light-surface-2 dark:bg-dark-surface-2 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-light-surface-2 dark:bg-dark-surface-2">
                     <svg className="w-8 h-8 text-light-text-secondary dark:text-dark-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                 </div>
-                <h3 className="text-lg font-medium mb-2 text-light-text dark:text-dark-text">Select a note</h3>
+                <h3 className="mb-2 text-lg font-medium text-light-text dark:text-dark-text">Select a note</h3>
                 <p>Choose a note from the list to view its content</p>
             </div>
         </div>
     );
 
     return (
-        <div className="h-screen bg-light-surface dark:bg-dark-bg flex flex-col transition-colors duration-300">
+        <div className="flex flex-col h-screen transition-colors duration-300 bg-light-surface dark:bg-dark-bg">
             <Header onAdd={handleAddNote} />
 
-            <div className="flex-1 flex overflow-hidden">
+            <div className="flex flex-1 overflow-hidden">
                 {/* Left Sidebar */}
                 <Sidebar
                     activeFilter={activeFilter}
@@ -197,7 +195,7 @@ const NotesPage = () => {
                 />
 
                 {/* Middle Panel - Note List */}
-                <div className="w-80 bg-light-surface dark:bg-dark-surface border-r border-light-border dark:border-dark-border flex flex-col transition-colors duration-300">
+                <div className="flex flex-col transition-colors duration-300 border-r w-80 bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border">
                     <div className="p-4 border-b border-light-border dark:border-dark-border">
                         <SearchBar
                             search={searchQuery}
@@ -211,7 +209,7 @@ const NotesPage = () => {
                 </div>
 
                 {/* Right Panel - Note Content */}
-                <div className="flex-1 bg-light-surface dark:bg-dark-surface flex flex-col transition-colors duration-300">
+                <div className="flex flex-col flex-1 transition-colors duration-300 bg-light-surface dark:bg-dark-surface">
                     {selectedNote ? (
                         <NoteViewer
                             note={selectedNote}

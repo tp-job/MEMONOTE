@@ -2,7 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    /* Light theme colors */
+    /*  theme colors */
     --color-deep-night: #1e202c;
     --color-charcoal-grey: #31323e;
     --color-lush-violet: #60519b;
@@ -22,7 +22,7 @@
     --color-light-accent: #60519b;
     --color-light-accent-hover: #8d84d0;
 
-    /* Dark theme colors */
+    /* Dark theme backgrounds and surfaces */
     --color-dark-bg: #1e202c;
     --color-dark-surface: #31323e;
     --color-dark-surface-2: #4a4b57;
@@ -36,6 +36,7 @@
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+    font-family: "Inter", sans-serif;
 }
 
 /* Focus styles */

@@ -1,6 +1,28 @@
 import { formatDate } from "../Utils/dateFormat";
+import { useState, useEffect } from "react";
 
 const NoteViewer = ({ note, onEdit, onDelete }) => {
+    // User color state
+    const [userColor, setUserColor] = useState(() => {
+        const saved = localStorage.getItem('userColor');
+        return saved || 'lush-violet';
+    });
+
+    // Available user colors
+    const userColors = [
+        { name: 'lush-violet', bg: 'bg-lush-violet', darkBg: 'dark:bg-velvet-violet', label: 'Violet' },
+        { name: 'lush-peach', bg: 'bg-lush-peach', darkBg: 'dark:bg-misty-peach', label: 'Peach' },
+        { name: 'elegant-violet', bg: 'bg-elegant-violet', darkBg: 'dark:bg-elegant-violet', label: 'Light Violet' },
+        { name: 'misty-lavender', bg: 'bg-misty-lavender', darkBg: 'dark:bg-misty-lavender', label: 'Lavender' },
+        { name: 'charcoal-grey', bg: 'bg-charcoal-grey', darkBg: 'dark:bg-charcoal-grey', label: 'Grey' },
+        { name: 'deep-night', bg: 'bg-deep-night', darkBg: 'dark:bg-deep-night', label: 'Dark' },
+    ];
+
+    // Save user color to localStorage
+    useEffect(() => {
+        localStorage.setItem('userColor', userColor);
+    }, [userColor]);
+
     // Helper functions
     const parseTags = (tagString) => {
         if (!tagString || !tagString.trim()) return [];
@@ -14,55 +36,91 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 
+    const handleColorChange = (colorName) => {
+        setUserColor(colorName);
+    };
+
+    const getCurrentColor = () => {
+        return userColors.find(color => color.name === userColor) || userColors[0];
+    };
+
     const noteTags = parseTags(note.tag);
+    const currentColor = getCurrentColor();
 
     // Render helpers
     const renderActionButtons = () => (
         <div className="flex items-center space-x-3">
             <button
                 onClick={() => onDelete(note.id)}
-                className="p-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-lush-peach hover:bg-lush-peach/10 dark:hover:bg-lush-peach/20 rounded-lg transition-colors duration-200"
+                className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-lush-peach hover:bg-lush-peach/10 dark:hover:bg-lush-peach/20"
                 title="Delete note"
             >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
+                <i class="ri-delete-bin-line"></i>
             </button>
-            
+
             <button
                 onClick={() => onEdit(note)}
-                className="p-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-lush-violet dark:hover:text-velvet-violet hover:bg-lush-violet/10 dark:hover:bg-velvet-violet/20 rounded-lg transition-colors duration-200"
+                className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-lush-violet dark:hover:text-velvet-violet hover:bg-lush-violet/10 dark:hover:bg-velvet-violet/20"
                 title="Edit note"
             >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
+                <i class="ri-edit-2-line"></i>
             </button>
-            
+
             <div className="w-px h-6 bg-light-border dark:bg-dark-border"></div>
-            
-            <button className="p-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 rounded-lg transition-colors duration-200">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                </svg>
+
+            <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
+                <i class="ri-share-line"></i>
             </button>
-            
-            <button className="p-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 rounded-lg transition-colors duration-200">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                </svg>
+
+            <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
+                <i class="ri-more-2-fill"></i>
             </button>
         </div>
     );
 
     const renderUserAvatar = () => (
         <div className="flex items-center space-x-3">
-            <div className="relative">
-                <div className="w-8 h-8 bg-lush-violet dark:bg-velvet-violet rounded-full flex items-center justify-center text-white text-sm font-medium">
+            <div className="relative group">
+                <div className={`flex items-center justify-center w-8 h-8 text-sm font-medium text-white rounded-full ${currentColor.bg} ${currentColor.darkBg} transition-all duration-300 cursor-pointer hover:scale-110`}>
                     U
                 </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-lush-peach rounded-full flex items-center justify-center">
+                <div className="absolute flex items-center justify-center w-4 h-4 rounded-full -top-1 -right-1 bg-lush-peach">
                     <span className="text-xs text-white">1</span>
+                </div>
+
+                {/* Color picker dropdown */}
+                <div className="absolute right-0 z-50 invisible w-64 mt-2 transition-all duration-300 border shadow-lg opacity-0 top-full bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border rounded-xl group-hover:opacity-100 group-hover:visible">
+                    <div className="p-4">
+                        <h3 className="flex items-center gap-2 mb-4 text-base font-semibold text-light-text dark:text-dark-text">
+                            <i class="ri-repeat-2-fill"></i>
+                            Choose User Color
+                        </h3>
+                        <div className="grid grid-cols-1 gap-3">
+                            {userColors.map((color) => (
+                                <button
+                                    key={color.name}
+                                    onClick={() => handleColorChange(color.name)}
+                                    className={`flex items-center gap-3 p-3 rounded-xl text-sm transition-all duration-200 ${userColor === color.name
+                                            ? 'bg-light-surface-2 dark:bg-dark-surface-2 text-light-text dark:text-dark-text ring-2 ring-lush-violet/20 dark:ring-velvet-violet/20'
+                                            : 'text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 hover:text-light-text dark:hover:text-dark-text'
+                                        }`}
+                                >
+                                    <div className={`w-6 h-6 rounded-full ${color.bg} ${color.darkBg} shadow-sm`}></div>
+                                    <span className="font-medium">{color.label}</span>
+                                    {userColor === color.name && (
+                                        <svg className="w-5 h-5 ml-auto text-lush-violet dark:text-velvet-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                        <div className="pt-3 mt-4 border-t border-light-border dark:border-dark-border">
+                            <p className="text-xs text-center text-light-text-secondary dark:text-dark-text-secondary">
+                                Color preference will be saved automatically
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,7 +129,7 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
     const renderNoteHeader = () => (
         <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-lush-violet dark:bg-velvet-violet rounded-full flex items-center justify-center text-white font-medium">
+                <div className={`flex items-center justify-center w-10 h-10 font-medium text-white rounded-full ${currentColor.bg} ${currentColor.darkBg} transition-all duration-300`}>
                     {note.title.charAt(0).toUpperCase()}
                 </div>
                 <div>
@@ -79,17 +137,13 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
                     <h1 className="text-2xl font-bold text-light-text dark:text-dark-text">{note.title}</h1>
                 </div>
             </div>
-            
+
             <div className="flex items-center space-x-2">
-                <button className="p-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 rounded-lg transition-colors duration-200">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
+                <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
+                    <i class="ri-arrow-left-s-line"></i>
                 </button>
-                <button className="p-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 rounded-lg transition-colors duration-200">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
+                    <i class="ri-arrow-right-s-line"></i>
                 </button>
             </div>
         </div>
@@ -100,7 +154,7 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
             {noteTags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
                     {noteTags.map((tag, index) => (
-                        <span 
+                        <span
                             key={index}
                             className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-lush-violet/10 dark:bg-lush-violet/20 text-lush-violet dark:text-velvet-violet"
                         >
@@ -111,9 +165,7 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
             )}
             {note.link && (
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-velvet-violet/10 dark:bg-velvet-violet/20 text-velvet-violet dark:text-elegant-violet">
-                    <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                    </svg>
+                    <i class="ri-links-line mr-0.5"></i>
                     Link
                 </span>
             )}
@@ -121,47 +173,43 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
     );
 
     const renderLinkSection = () => (
-    note.link && (
-        <div className="group mt-6 p-5 bg-gradient-to-br from-lush-violet/5 via-velvet-violet/5 to-elegant-violet/5 dark:from-lush-violet/10 dark:via-velvet-violet/10 dark:to-elegant-violet/10 rounded-2xl border border-lush-violet/20 dark:border-lush-violet/30 shadow-sm hover:shadow-md transition-all duration-300 backdrop-blur-sm">
-            <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                        <div className="w-2 h-2 bg-lush-violet dark:bg-velvet-violet rounded-full animate-pulse"></div>
-                        <h3 className="text-sm font-semibold text-light-text dark:text-dark-text tracking-wide uppercase">
-                            Related Link
-                        </h3>
+        note.link && (
+            <div className="p-5 mt-6 transition-all duration-300 border shadow-sm group bg-gradient-to-br from-lush-violet/5 via-velvet-violet/5 to-elegant-violet/5 dark:from-lush-violet/10 dark:via-velvet-violet/10 dark:to-elegant-violet/10 rounded-2xl border-lush-violet/20 dark:border-lush-violet/30 hover:shadow-md backdrop-blur-sm">
+                <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="w-2 h-2 rounded-full bg-lush-violet dark:bg-velvet-violet animate-pulse"></div>
+                            <h3 className="text-sm font-semibold tracking-wide uppercase text-light-text dark:text-dark-text">
+                                Related Link
+                            </h3>
+                        </div>
+                        <div className="flex items-center gap-2 text-lush-violet dark:text-velvet-violet">
+                            <i class="ri-links-line"></i>
+                            <p className="text-sm font-medium truncate transition-colors duration-200 hover:text-velvet-violet dark:hover:text-elegant-violet">
+                                {note.link}
+                            </p>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2 text-lush-violet dark:text-velvet-violet">
-                        <svg className="w-4 h-4 text-lush-violet dark:text-velvet-violet flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.102m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                        <p className="text-sm font-medium truncate hover:text-velvet-violet dark:hover:text-elegant-violet transition-colors duration-200">
-                            {note.link}
-                        </p>
-                    </div>
+
+                    <button
+                        onClick={() => handleLinkClick(note.link)}
+                        className="flex-shrink-0 group/btn inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-lush-violet to-velvet-violet rounded-xl shadow-lg hover:shadow-xl hover:from-velvet-violet hover:to-elegant-violet focus:outline-none focus:ring-4 focus:ring-lush-violet/25 dark:focus:ring-velvet-violet/25 transform hover:scale-105 transition-all duration-300 active:scale-95"
+                    >
+                        <i class="ri-external-link-line"></i>
+                        <span className="group-hover/btn:translate-x-0.5 transition-transform duration-300">
+                            Open
+                        </span>
+                    </button>
                 </div>
-                
-                <button
-                    onClick={() => handleLinkClick(note.link)}
-                    className="flex-shrink-0 group/btn inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-lush-violet to-velvet-violet rounded-xl shadow-lg hover:shadow-xl hover:from-velvet-violet hover:to-elegant-violet focus:outline-none focus:ring-4 focus:ring-lush-violet/25 dark:focus:ring-velvet-violet/25 transform hover:scale-105 transition-all duration-300 active:scale-95"
-                >
-                    <svg className="w-4 h-4 group-hover/btn:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    <span className="group-hover/btn:translate-x-0.5 transition-transform duration-300">
-                        Open
-                    </span>
-                </button>
+
+                {/* Decorative elements */}
+                <div className="absolute inset-0 transition-opacity duration-500 opacity-0 pointer-events-none bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:opacity-100 rounded-2xl"></div>
             </div>
-            
-            {/* Decorative elements */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-        </div>
-    )
-);
+        )
+    );
 
     return (
-        <div className="flex-1 flex flex-col">
+        <div className="flex flex-col flex-1">
             {/* Top Bar */}
             <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border">
                 {renderActionButtons()}
@@ -169,11 +217,11 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
             </div>
 
             {/* Note Content */}
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 p-6 overflow-y-auto">
                 {/* Note Header */}
                 <div className="mb-6">
                     {renderNoteHeader()}
-                    
+
                     <div className="flex items-center justify-between text-sm text-light-text-secondary dark:text-dark-text-secondary">
                         <span>{formatDate(note.createdAt)}</span>
                         {renderTags()}
@@ -182,10 +230,10 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
 
                 {/* Note Body */}
                 <div className="prose max-w-none">
-                    <div className="text-light-text dark:text-dark-text whitespace-pre-wrap leading-relaxed">
+                    <div className="leading-relaxed whitespace-pre-wrap text-light-text dark:text-dark-text">
                         {note.content}
                     </div>
-                    
+
                     {renderLinkSection()}
                 </div>
             </div>

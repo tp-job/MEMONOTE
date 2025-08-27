@@ -33,11 +33,11 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
 
     const getTagColor = (tag) => {
         const colorMap = {
-            'Personal': 'bg-lush-peach',
-            'Work': 'bg-lush-violet',
-            'Friends': 'bg-velvet-violet',
-            'Ideas': 'bg-elegant-violet',
-            'Important': 'bg-misty-peach'
+            'personal': 'bg-lush-peach',
+            'work': 'bg-lush-violet',
+            'friends': 'bg-velvet-violet',
+            'ideas': 'bg-elegant-violet',
+            'important': 'bg-misty-peach'
         };
         return colorMap[tag] || 'bg-misty-lavender';
     };
@@ -73,7 +73,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
 
     const renderFilters = () => (
         <div className="p-4">
-            <h3 className="text-sm font-medium text-light-text dark:text-dark-text mb-3 transition-colors duration-300">Filters</h3>
+            <h3 className="mb-3 text-sm font-medium transition-colors duration-300 text-light-text dark:text-dark-text">Filters</h3>
             <div className="space-y-1">
                 {filters.map(renderFilterButton)}
             </div>
@@ -83,7 +83,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
     const renderTags = () => (
         tags && tags.length > 0 && (
             <div className="p-4 border-t border-light-border dark:border-dark-border">
-                <h3 className="text-sm font-medium text-light-text dark:text-dark-text mb-3 transition-colors duration-300">Tags</h3>
+                <h3 className="mb-3 text-sm font-medium transition-colors duration-300 text-light-text dark:text-dark-text">Tags</h3>
                 <div className="space-y-1">
                     {tags.map(renderTagButton)}
                 </div>
@@ -92,28 +92,36 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
     );
 
     const [time, setTime] = useState(new Date());
-    
-        useEffect(() => {
-            const timer = setInterval(() => {
-                setTime(new Date());
-            }, 1000);
-            return () => clearInterval(timer);
-        }, []);
-    
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTime(new Date());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
     const renderStatus = () => (
         <div className="p-4 border-t border-light-border dark:border-dark-border">
             <div className="text-xs text-light-text-secondary dark:text-dark-text-secondary">
                 <div className="flex items-center">
-                    <div className="w-2 h-2 bg-velvet-violet rounded-full mr-2"></div>
+                    <div className="w-2 h-2 mr-2 rounded-full bg-velvet-violet"></div>
                     Ready
-                    <div className="ml-4">{time.toLocaleTimeString()}</div>
+                    <div className="ml-4">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                 </div>
             </div>
         </div>
     );
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <div className="w-64 bg-light-surface dark:bg-dark-surface border-r border-light-border dark:border-dark-border flex flex-col transition-colors duration-300">
+        <div className="flex flex-col w-64 transition-colors duration-300 border-r bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border">
+            {/* mobile menu button */}
+            <div className="flex items-center md:hidden">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-moon-deep-purple focus:outline-none" aria-label="Toggle menu">
+                    <i className={`ri-menu-line ${isMenuOpen ? 'ri-menu-line' : 'ri-menu-line'} text-xl`}></i>
+                </button>
+            </div>
+
             {/* Filters */}
             <div className="flex-1 overflow-y-auto">
                 {renderFilters()}
@@ -121,6 +129,19 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
             </div>
             {/* Status */}
             {renderStatus()}
+
+            {/* mobile menu */}
+            {isMenuOpen && (
+                <div className="px-4 pb-4 space-y-2 transition-all duration-300 ease-in-out rounded-none md:hidden">
+                    {/* Filters */}
+                    <div className="flex-1 overflow-y-auto">
+                        {renderFilters()}
+                        {renderTags()}
+                    </div>
+                    {/* Status */}
+                    {renderStatus()}
+                </div>
+            )}
         </div>
     );
 }
