@@ -23,9 +23,9 @@
 
 - ✅ Day 9: ทำ SearchBar.jsx → ค้นหาโน้ตด้วย Title/Content
 
-- [ ] Day 10: ปรับ UI Responsive (มือถือ/PC)
+- ✅ Day 10: ปรับ UI Responsive (มือถือ/PC)
 
-- [ ] Day 11: เพิ่ม Dark/Light Mode (Tailwind Theme)
+- ✅ Day 11: เพิ่ม Dark/Light Mode (Tailwind Theme)
 
 - [ ] Day 12: ปรับปรุง UX/UI (ปุ่ม, Card, Modal)
 

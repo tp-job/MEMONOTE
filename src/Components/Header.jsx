@@ -5,31 +5,32 @@ const Header = ({ onAdd }) => {
 
     return (
         <header className="transition-all duration-300 border-b shadow-sm bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border">
-            <div className="flex items-center justify-between px-6 h-14">
+            <div className="flex items-center justify-between px-4 lg:px-6 h-14">
                 <div className="flex items-center">
-                    <h1 className="hidden md:block md:text-xl md:font-bold md:tracking-[6px] dark:text-dark-text">
+                    <h1 className="text-lg lg:text-xl font-bold tracking-[2px] lg:tracking-[6px] text-light-text dark:text-dark-text">
                         MEMONOTE
                     </h1>
                 </div>
 
-                <div className="flex items-center space-x-4">
-                    <div className="flex space-x-2">
+                <div className="flex items-center space-x-2 lg:space-x-4">
+                    {/* Social Media Buttons - Hidden on mobile */}
+                    <div className="hidden md:flex space-x-2">
                         {/* Twitter Share Button */}
-                        <div className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
-                            <i class="ri-twitter-x-line"></i>
-                        </div>
+                        <button className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
+                            <i className="ri-twitter-x-line"></i>
+                        </button>
                         {/* Instagram Share Button */}
-                        <div className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
-                            <i class="ri-instagram-line"></i>
-                        </div>
+                        <button className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
+                            <i className="ri-instagram-line"></i>
+                        </button>
                         {/* Facebook Share Button */}
-                        <div className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
-                            <i class="ri-facebook-line"></i>
-                        </div>
+                        <button className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
+                            <i className="ri-facebook-line"></i>
+                        </button>
                         {/* github Share Button */}
-                        <div className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
-                            <i class="ri-github-line"></i>
-                        </div>
+                        <button className="p-2 transition-all duration-300 rounded-lg bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:shadow-md">
+                            <i className="ri-github-line"></i>
+                        </button>
                     </div>
 
                     {/* Theme Toggle Button */}
@@ -40,20 +41,20 @@ const Header = ({ onAdd }) => {
                         title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
                     >
                         {isDark ? (
-                            // ไอคอนดวงอาทิตย์ (เมื่ออยู่ใน dark mode)
-                            <i class="ri-sun-line"></i>
+                            <i className="ri-sun-line"></i>
                         ) : (
-                            // ไอคอนพระจันทร์ (เมื่ออยู่ใน light mode)
-                            <i class="ri-moon-cloudy-line"></i>
+                            <i className="ri-moon-cloudy-line"></i>
                         )}
                     </button>
 
+                    {/* Add Note Button */}
                     <button
                         onClick={onAdd}
-                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-200 border border-transparent rounded-lg bg-lush-violet hover:bg-velvet-violet focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lush-violet"
+                        className="inline-flex items-center px-3 lg:px-4 py-2 text-sm font-medium text-white transition-all duration-200 border border-transparent rounded-lg bg-lush-violet hover:bg-velvet-violet focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lush-violet hover:shadow-md active:scale-95"
                     >
-                        <i class="ri-add-large-fill mr-1"></i>
-                        New Note
+                        <i className="ri-add-large-fill mr-1 lg:mr-2"></i>
+                        <span className="hidden sm:inline">New Note</span>
+                        <span className="sm:hidden">Add</span>
                     </button>
                 </div>
             </div>

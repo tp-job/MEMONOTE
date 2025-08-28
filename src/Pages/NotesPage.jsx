@@ -13,6 +13,7 @@ const NotesPage = () => {
     const [selectedNote, setSelectedNote] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('all');
+    const [mobileView, setMobileView] = useState('list'); // 'list' or 'viewer'
 
     // Custom hook for note operations
     const { 
@@ -80,6 +81,7 @@ const NotesPage = () => {
             deleteNote(id);
             if (selectedNote && selectedNote.id === id) {
                 setSelectedNote(null);
+                setMobileView('list');
             }
         }
     };
@@ -91,11 +93,17 @@ const NotesPage = () => {
 
     const handleNoteSelect = (note) => {
         setSelectedNote(note);
+        setMobileView('viewer');
     };
 
     const handleFilterChange = (filter) => {
         setActiveFilter(filter);
         setSelectedNote(null);
+        setMobileView('list');
+    };
+
+    const handleBackToList = () => {
+        setMobileView('list');
     };
 
     // Render helpers
@@ -105,7 +113,11 @@ const NotesPage = () => {
         if (filteredNotes.length === 0) {
             return (
                 <div className="p-8 text-center text-light-text-secondary dark:text-dark-text-secondary">
-                    <p>No notes found</p>
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-light-surface-2 dark:bg-dark-surface-2">
+                        <i className="ri-file-list-3-line text-2xl"></i>
+                    </div>
+                    <p className="text-lg font-medium text-light-text dark:text-dark-text mb-2">No notes found</p>
+                    <p className="text-sm">Try adjusting your search or filter</p>
                 </div>
             );
         }
@@ -127,7 +139,7 @@ const NotesPage = () => {
                             <div className="flex items-center ml-2 space-x-1">
                                 {note.link && (
                                     <span className="text-lush-violet dark:text-velvet-violet" title="Has link">
-                                        <i class="ri-links-line"></i>
+                                        <i className="ri-links-line"></i>
                                     </span>
                                 )}
                                 <span className="text-xs text-light-text-secondary dark:text-dark-text-secondary">
@@ -169,13 +181,27 @@ const NotesPage = () => {
         <div className="flex items-center justify-center flex-1 text-light-text-secondary dark:text-dark-text-secondary">
             <div className="text-center">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-light-surface-2 dark:bg-dark-surface-2">
-                    <svg className="w-8 h-8 text-light-text-secondary dark:text-dark-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
+                    <i className="ri-sticky-note-line text-2xl"></i>
                 </div>
                 <h3 className="mb-2 text-lg font-medium text-light-text dark:text-dark-text">Select a note</h3>
                 <p>Choose a note from the list to view its content</p>
             </div>
+        </div>
+    );
+
+    const renderMobileNavigation = () => (
+        <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border lg:hidden">
+            <button
+                onClick={handleBackToList}
+                className="flex items-center gap-2 p-2 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 transition-all duration-200"
+            >
+                <i className="ri-arrow-left-line"></i>
+                <span className="text-sm font-medium">Back to List</span>
+            </button>
+            <h2 className="text-lg font-bold text-light-text dark:text-dark-text">
+                {selectedNote?.title || 'Note'}
+            </h2>
+            <div className="w-10"></div> {/* Spacer for centering */}
         </div>
     );
 
@@ -184,40 +210,93 @@ const NotesPage = () => {
             <Header onAdd={handleAddNote} />
 
             <div className="flex flex-1 overflow-hidden">
-                {/* Left Sidebar */}
-                <Sidebar
-                    activeFilter={activeFilter}
-                    onFilterChange={handleFilterChange}
-                    noteCount={notes.length}
-                    tags={getAllTags()}
-                    notesWithLinks={getNotesWithLinks().length}
-                    notesWithTags={getNotesWithTags().length}
-                />
+                {/* Left Sidebar - Hidden on mobile */}
+                <div className="hidden lg:block">
+                    <Sidebar
+                        activeFilter={activeFilter}
+                        onFilterChange={handleFilterChange}
+                        noteCount={notes.length}
+                        tags={getAllTags()}
+                        notesWithLinks={getNotesWithLinks().length}
+                        notesWithTags={getNotesWithTags().length}
+                    />
+                </div>
 
-                {/* Middle Panel - Note List */}
-                <div className="flex flex-col transition-colors duration-300 border-r w-80 bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border">
-                    <div className="p-4 border-b border-light-border dark:border-dark-border">
-                        <SearchBar
-                            search={searchQuery}
-                            setSearch={setSearchQuery}
-                        />
+                {/* Mobile: Show Sidebar */}
+                <div className="lg:hidden">
+                    <Sidebar
+                        activeFilter={activeFilter}
+                        onFilterChange={handleFilterChange}
+                        noteCount={notes.length}
+                        tags={getAllTags()}
+                        notesWithLinks={getNotesWithLinks().length}
+                        notesWithTags={getNotesWithTags().length}
+                    />
+                </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden lg:flex lg:flex-1">
+                    {/* Middle Panel - Note List */}
+                    <div className="flex flex-col transition-colors duration-300 border-r w-80 bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border">
+                        <div className="p-4 border-b border-light-border dark:border-dark-border">
+                            <SearchBar
+                                search={searchQuery}
+                                setSearch={setSearchQuery}
+                            />
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto">
+                            {renderNoteList()}
+                        </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto">
-                        {renderNoteList()}
+                    {/* Right Panel - Note Content */}
+                    <div className="flex flex-col flex-1 transition-colors duration-300 bg-light-surface dark:bg-dark-surface">
+                        {selectedNote ? (
+                            <NoteViewer
+                                note={selectedNote}
+                                onEdit={handleEditNote}
+                                onDelete={handleDeleteNote}
+                                notes={notes}
+                                setSelectedNote={setSelectedNote}
+                            />
+                        ) : (
+                            renderEmptyState()
+                        )}
                     </div>
                 </div>
 
-                {/* Right Panel - Note Content */}
-                <div className="flex flex-col flex-1 transition-colors duration-300 bg-light-surface dark:bg-dark-surface">
-                    {selectedNote ? (
-                        <NoteViewer
-                            note={selectedNote}
-                            onEdit={handleEditNote}
-                            onDelete={handleDeleteNote}
-                        />
-                    ) : (
-                        renderEmptyState()
+                {/* Mobile Layout */}
+                <div className="flex flex-1 lg:hidden">
+                    {/* Note List View */}
+                    {mobileView === 'list' && (
+                        <div className="flex flex-col flex-1 transition-colors duration-300 bg-light-surface dark:bg-dark-surface">
+                            <div className="p-4 border-b border-light-border dark:border-dark-border">
+                                <SearchBar
+                                    search={searchQuery}
+                                    setSearch={setSearchQuery}
+                                />
+                            </div>
+                            <div className="flex-1 overflow-y-auto">
+                                {renderNoteList()}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Note Viewer */}
+                    {mobileView === 'viewer' && selectedNote && (
+                        <div className="flex flex-col flex-1 transition-colors duration-300 bg-light-surface dark:bg-dark-surface">
+                            {renderMobileNavigation()}
+                            <div className="flex-1 overflow-hidden">
+                                <NoteViewer
+                                    note={selectedNote}
+                                    onEdit={handleEditNote}
+                                    onDelete={handleDeleteNote}
+                                    notes={notes}
+                                    setSelectedNote={setSelectedNote}
+                                />
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>

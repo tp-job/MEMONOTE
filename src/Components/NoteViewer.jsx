@@ -1,7 +1,7 @@
 import { formatDate } from "../Utils/dateFormat";
 import { useState, useEffect } from "react";
 
-const NoteViewer = ({ note, onEdit, onDelete }) => {
+const NoteViewer = ({ note, onEdit, onDelete, notes, setSelectedNote }) => {
     // User color state
     const [userColor, setUserColor] = useState(() => {
         const saved = localStorage.getItem('userColor');
@@ -47,6 +47,20 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
     const noteTags = parseTags(note.tag);
     const currentColor = getCurrentColor();
 
+    const currentIndex = notes.findIndex(n => n.id === note.id);
+
+    const handlePreviousNote = () => {
+        if (currentIndex > 0) {
+            setSelectedNote(notes[currentIndex - 1]);
+        }
+    };
+
+    const handleNextNote = () => {
+        if (currentIndex < notes.length - 1) {
+            setSelectedNote(notes[currentIndex + 1]);
+        }
+    };
+
     // Render helpers
     const renderActionButtons = () => (
         <div className="flex items-center space-x-3">
@@ -64,16 +78,6 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
                 title="Edit note"
             >
                 <i class="ri-edit-2-line"></i>
-            </button>
-
-            <div className="w-px h-6 bg-light-border dark:bg-dark-border"></div>
-
-            <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
-                <i class="ri-share-line"></i>
-            </button>
-
-            <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
-                <i class="ri-more-2-fill"></i>
             </button>
         </div>
     );
@@ -108,9 +112,7 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
                                     <div className={`w-6 h-6 rounded-full ${color.bg} ${color.darkBg} shadow-sm`}></div>
                                     <span className="font-medium">{color.label}</span>
                                     {userColor === color.name && (
-                                        <svg className="w-5 h-5 ml-auto text-lush-violet dark:text-velvet-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
+                                        <i class="ri-check-fill"></i>
                                     )}
                                 </button>
                             ))}
@@ -133,16 +135,15 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
                     {note.title.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                    <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">Note created by User</p>
-                    <h1 className="text-2xl font-bold text-light-text dark:text-dark-text">{note.title}</h1>
+                    <h1 className="text-xl font-bold text-light-text dark:text-dark-text">{note.title}</h1>
                 </div>
             </div>
 
             <div className="flex items-center space-x-2">
-                <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
+                <button onClick={handlePreviousNote} className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
                     <i class="ri-arrow-left-s-line"></i>
                 </button>
-                <button className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
+                <button onClick={handleNextNote} className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2">
                     <i class="ri-arrow-right-s-line"></i>
                 </button>
             </div>
@@ -211,18 +212,18 @@ const NoteViewer = ({ note, onEdit, onDelete }) => {
     return (
         <div className="flex flex-col flex-1">
             {/* Top Bar */}
-            <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border">
+            <div className="flex items-center justify-between p-3 sm:p-4 border-b border-light-border dark:border-dark-border">
                 {renderActionButtons()}
                 {renderUserAvatar()}
             </div>
 
             {/* Note Content */}
-            <div className="flex-1 p-6 overflow-y-auto">
+            <div className="flex-1 p-4 sm:p-6 overflow-y-auto">
                 {/* Note Header */}
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                     {renderNoteHeader()}
 
-                    <div className="flex items-center justify-between text-sm text-light-text-secondary dark:text-dark-text-secondary">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 text-sm text-light-text-secondary dark:text-dark-text-secondary">
                         <span>{formatDate(note.createdAt)}</span>
                         {renderTags()}
                     </div>

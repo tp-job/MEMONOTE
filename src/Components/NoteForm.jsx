@@ -119,44 +119,45 @@ const NoteForm = ({ note, onSave, onCancel }) => {
     );
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden border border-light-border/20 dark:border-dark-border/20">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm">
+            <div className="bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden border border-light-border/20 dark:border-dark-border/20">
                 {/* Header with gradient */}
-                <div className="relative px-8 py-6 bg-gradient-to-r from-lush-violet via-velvet-violet to-elegant-violet">
+                <div className="relative px-4 sm:px-8 py-4 sm:py-6 bg-gradient-to-r from-lush-violet via-velvet-violet to-elegant-violet">
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="relative flex items-center justify-between">
-                        <h2 className="flex items-center gap-3 text-2xl font-bold text-white">
-                            <div className="flex items-center justify-center w-8 h-8 bg-white/20 rounded-xl backdrop-blur-sm">
-                                <i class="ri-edit-box-line"></i>
+                        <h2 className="flex items-center gap-2 sm:gap-3 text-lg sm:text-2xl font-bold text-white">
+                            <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-xl backdrop-blur-sm">
+                                <i className="ri-edit-box-line text-sm sm:text-base"></i>
                             </div>
-                            {note ? "Edit Note" : "Create New Note"}
+                            <span className="hidden sm:inline">{note ? "Edit Note" : "Create New Note"}</span>
+                            <span className="sm:hidden">{note ? "Edit" : "New"}</span>
                         </h2>
                         <button
                             onClick={handleCancel}
                             className="flex items-center justify-center w-8 h-8 transition-all duration-200 bg-white/20 rounded-xl hover:bg-white/30 backdrop-blur-sm"
                         >
-                            <i class="ri-close-large-line"></i>
+                            <i className="ri-close-large-line"></i>
                         </button>
                     </div>
                 </div>
                 
-                <form onSubmit={handleSubmit} className="p-8 overflow-y-auto max-h-[calc(90vh-140px)]">
-                    <div className="space-y-6">
+                <form onSubmit={handleSubmit} className="p-4 sm:p-8 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(90vh-140px)]">
+                    <div className="space-y-4 sm:space-y-6">
                         {renderInputField("title", "Title", "text", "Enter note title...", null, 
-                            <i class="ri-price-tag-3-line"></i>
+                            <i className="ri-price-tag-3-line"></i>
                         )}
                         
-                        {renderInputField("content", "Content", "textarea", "Write your note content...", 8,
-                            <i class="ri-file-text-line"></i>
+                        {renderInputField("content", "Content", "textarea", "Write your note content...", 6,
+                            <i className="ri-file-text-line"></i>
                         )}
                         
                         {renderInputField("link", "Link (optional)", "url", "https://example.com", null,
-                            <i class="ri-links-line"></i>
+                            <i className="ri-links-line"></i>
                         )}
                         
                         <div>
                             {renderInputField("tag", "Tags (optional)", "text", "e.g., work, personal, ideas, sci, math...", null,
-                                <i class="ri-price-tag-3-line"></i>
+                                <i className="ri-price-tag-3-line"></i>
                             )}
                             {renderTagHelpText()}
                         </div>
