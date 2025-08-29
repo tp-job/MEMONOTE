@@ -27,7 +27,7 @@
 
 - ✅ Day 11: เพิ่ม Dark/Light Mode (Tailwind Theme)
 
-- [ ] Day 12: ปรับปรุง UX/UI (ปุ่ม, Card, Modal)
+- ✅ Day 12: ปรับปรุง UX/UI (ปุ่ม, Card, Modal)
 
 ## Phase 4: Testing & Final (Day 13–15)
 

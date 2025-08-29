@@ -14,6 +14,7 @@ const NotesPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('all');
     const [mobileView, setMobileView] = useState('list'); // 'list' or 'viewer'
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // Custom hook for note operations
     const { 
@@ -189,25 +190,9 @@ const NotesPage = () => {
         </div>
     );
 
-    const renderMobileNavigation = () => (
-        <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border lg:hidden">
-            <button
-                onClick={handleBackToList}
-                className="flex items-center gap-2 p-2 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 transition-all duration-200"
-            >
-                <i className="ri-arrow-left-line"></i>
-                <span className="text-sm font-medium">Back to List</span>
-            </button>
-            <h2 className="text-lg font-bold text-light-text dark:text-dark-text">
-                {selectedNote?.title || 'Note'}
-            </h2>
-            <div className="w-10"></div> {/* Spacer for centering */}
-        </div>
-    );
-
     return (
-        <div className="flex flex-col h-screen transition-colors duration-300 bg-light-surface dark:bg-dark-bg">
-            <Header onAdd={handleAddNote} />
+        <div className="flex flex-col h-screen transition-colors duration-300 bg-light-surface dark:bg-dark-bg z-10">
+            <Header onAdd={handleAddNote} setIsMenuOpen={setIsMenuOpen} />
 
             <div className="flex flex-1 overflow-hidden">
                 {/* Left Sidebar - Hidden on mobile */}
@@ -219,6 +204,8 @@ const NotesPage = () => {
                         tags={getAllTags()}
                         notesWithLinks={getNotesWithLinks().length}
                         notesWithTags={getNotesWithTags().length}
+                        isMenuOpen={isMenuOpen}
+                        setIsMenuOpen={setIsMenuOpen}
                     />
                 </div>
 
@@ -231,6 +218,8 @@ const NotesPage = () => {
                         tags={getAllTags()}
                         notesWithLinks={getNotesWithLinks().length}
                         notesWithTags={getNotesWithTags().length}
+                        isMenuOpen={isMenuOpen}
+                        setIsMenuOpen={setIsMenuOpen}
                     />
                 </div>
 
@@ -286,7 +275,6 @@ const NotesPage = () => {
                     {/* Note Viewer */}
                     {mobileView === 'viewer' && selectedNote && (
                         <div className="flex flex-col flex-1 transition-colors duration-300 bg-light-surface dark:bg-dark-surface">
-                            {renderMobileNavigation()}
                             <div className="flex-1 overflow-hidden">
                                 <NoteViewer
                                     note={selectedNote}

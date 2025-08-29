@@ -1,6 +1,7 @@
 import { useTheme } from '../Context/ThemeContext';
+import { useState } from 'react';
 
-const Header = ({ onAdd }) => {
+const Header = ({ onAdd, setIsMenuOpen }) => {
     const { isDark, toggleTheme } = useTheme();
 
     return (
@@ -55,6 +56,15 @@ const Header = ({ onAdd }) => {
                         <i className="ri-add-large-fill mr-1 lg:mr-2"></i>
                         <span className="hidden sm:inline">New Note</span>
                         <span className="sm:hidden">Add</span>
+                    </button>
+
+                    {/* Mobile Menu Toggle Button */}
+                    <button 
+                        onClick={() => setIsMenuOpen(prev => !prev)} 
+                        className="p-2 rounded-lg bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border shadow-md text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 transition-all duration-200 lg:hidden"
+                        aria-label="Open menu"
+                    >
+                        <i className="ri-menu-line text-xl"></i>
                     </button>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks, notesWithTags }) => {
+const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks, notesWithTags, isMenuOpen, setIsMenuOpen }) => {
     // Filter configuration with icons
     const filters = [
         { id: 'all', label: 'All Notes', count: noteCount, icon: 'ri-file-list-3-line' },
@@ -101,6 +101,8 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
                         <i className="ri-price-tag-3-line text-white text-sm"></i>
                     </div>
                     <h3 className="text-sm font-medium transition-colors duration-300 text-light-text dark:text-dark-text">Tags</h3>
+                    <i class="ri-information-fill"></i>
+                    
                     <span className="ml-auto text-xs text-light-text-secondary dark:text-dark-text-secondary bg-light-surface-2 dark:bg-dark-surface-2 px-2 py-1 rounded-full">
                         {tags.length}
                     </span>
@@ -137,8 +139,6 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
         </div>
     );
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     // Close mobile menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -161,10 +161,10 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
             {/* Sidebar Container */}
             <div className={`sidebar-container fixed lg:relative z-50 h-full transition-all duration-300 ease-in-out ${
                 isMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-            }`}>
+            }`} style={{ borderTopLeftRadius: '1rem', borderBottomLeftRadius: '1rem', top: 0 }}>
                 <div className="flex flex-col w-72 h-full transition-all duration-300 border-r bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border shadow-sm">
                     {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border">
+                    <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border ${isMenuOpen ? 'hidden' : 'flex'}">
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-lush-violet to-velvet-violet flex items-center justify-center">
                                 <i className="ri-sticky-note-line text-white text-sm"></i>
@@ -174,33 +174,24 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
                         
                         {/* Mobile menu button */}
                         <button 
-                            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                            onClick={() => setIsMenuOpen(false)} 
                             className="p-2 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 lg:hidden transition-all duration-200"
-                            aria-label="Toggle menu"
+                            aria-label="Close menu"
                         >
-                            <i className={`ri-close-line text-xl transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`}></i>
+                            <i className="ri-close-line text-xl"></i>
                         </button>
                     </div>
 
-                                {/* Content */}
-            <div className="flex-1 overflow-y-auto">
-                {renderFilters()}
-                {renderTags()}
-            </div>
+                    {/* Content */}
+                    <div className="flex-1 overflow-y-auto">
+                        {renderFilters()}
+                        {renderTags()}
+                    </div>
 
-            {/* Status - Fixed at bottom */}
-            {renderStatus()}
+                    {/* Status - Fixed at bottom */}
+                    {renderStatus()}
                 </div>
             </div>
-
-            {/* Mobile Menu Toggle Button (Fixed) */}
-            <button 
-                onClick={() => setIsMenuOpen(true)} 
-                className="fixed top-4 left-4 z-30 p-3 rounded-lg bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border shadow-lg text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 lg:hidden transition-all duration-200"
-                aria-label="Open menu"
-            >
-                <i className="ri-menu-line text-xl"></i>
-            </button>
         </>
     );
 }

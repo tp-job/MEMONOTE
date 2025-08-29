@@ -79,6 +79,24 @@ const NoteViewer = ({ note, onEdit, onDelete, notes, setSelectedNote }) => {
             >
                 <i class="ri-edit-2-line"></i>
             </button>
+
+            <span className="text-light-text-secondary dark:text-dark-text-secondary">|</span>
+
+            <button
+                onClick={() => onEdit(note)}
+                className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-lush-violet dark:hover:text-velvet-violet hover:bg-lush-violet/10 dark:hover:bg-velvet-violet/20"
+                title="Edit note"
+            >
+                <i class="ri-share-line"></i>
+            </button>
+
+            <button
+                onClick={() => onEdit(note)}
+                className="p-2 transition-colors duration-200 rounded-lg text-light-text-secondary dark:text-dark-text-secondary hover:text-lush-violet dark:hover:text-velvet-violet hover:bg-lush-violet/10 dark:hover:bg-velvet-violet/20"
+                title="Edit note"
+            >
+                <i class="ri-more-2-line"></i>
+            </button>
         </div>
     );
 
