@@ -93,26 +93,64 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
         </div>
     );
 
-    const renderTags = () => (
-        tags && tags.length > 0 && (
-            <div className="p-4 border-t border-light-border dark:border-dark-border">
-                <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-elegant-violet to-misty-lavender flex items-center justify-center">
-                        <i className="ri-price-tag-3-line text-white text-sm"></i>
+    const renderTags = () => {
+        const [showTooltip, setShowTooltip] = useState(false);
+
+        return (
+            tags &&
+            tags.length > 0 && (
+                <div className="p-4 border-t border-light-border dark:border-dark-border">
+                    <div className="flex items-center gap-3 mb-3 relative">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-elegant-violet to-misty-lavender flex items-center justify-center">
+                            <i className="ri-price-tag-3-line text-white text-sm"></i>
+                        </div>
+                        <h3 className="text-sm font-medium transition-colors duration-300 text-light-text dark:text-dark-text">
+                            Tags
+                        </h3>
+
+                        {/* Info icon with tooltip */}
+                        <div
+                            className="relative"
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                        >
+                            <i className="ri-information-fill cursor-pointer text-light-text dark:text-dark-text"></i>
+
+                            {showTooltip && (
+                                <div className="absolute right-0 top-6 z-50 w-32 p-2 rounded-lg shadow-xl bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 max-h-48 overflow-hidden">
+                                    <div className="text-xs font-semibold mb-1 text-gray-600 dark:text-gray-400">Tag Colors</div>
+                                    <div className="space-y-1">
+                                        {Object.entries({
+                                            personal: "bg-orange-400",
+                                            work: "bg-purple-500",
+                                            friends: "bg-violet-500",
+                                            ideas: "bg-indigo-400",
+                                            important: "bg-pink-400",
+                                            todo: "bg-gray-600",
+                                            project: "bg-gray-800",
+                                        }).map(([tag, color]) => (
+                                            <div key={tag} className="flex items-center gap-1.5 text-xs">
+                                                <span className={`w-2 h-2 rounded-full ${color} flex-shrink-0`}></span>
+                                                <span className="truncate">{tag}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <span className="ml-auto text-xs text-light-text-secondary dark:text-dark-text-secondary bg-light-surface-2 dark:bg-dark-surface-2 px-2 py-1 rounded-full">
+                            {tags.length}
+                        </span>
                     </div>
-                    <h3 className="text-sm font-medium transition-colors duration-300 text-light-text dark:text-dark-text">Tags</h3>
-                    <i class="ri-information-fill"></i>
-                    
-                    <span className="ml-auto text-xs text-light-text-secondary dark:text-dark-text-secondary bg-light-surface-2 dark:bg-dark-surface-2 px-2 py-1 rounded-full">
-                        {tags.length}
-                    </span>
+
+                    <div className="space-y-1">
+                        {tags.map(renderTagButton)}
+                    </div>
                 </div>
-                <div className="space-y-1">
-                    {tags.map(renderTagButton)}
-                </div>
-            </div>
-        )
-    );
+            )
+        );
+    };
 
     const [time, setTime] = useState(new Date());
     useEffect(() => {
@@ -149,7 +187,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isMenuOpen]);
+    }, [isMenuOpen, setIsMenuOpen]);
 
     return (
         <>
@@ -164,7 +202,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
             }`} style={{ borderTopLeftRadius: '1rem', borderBottomLeftRadius: '1rem', top: 0 }}>
                 <div className="flex flex-col w-72 h-full transition-all duration-300 border-r bg-light-surface dark:bg-dark-surface border-light-border dark:border-dark-border shadow-sm">
                     {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border ${isMenuOpen ? 'hidden' : 'flex'}">
+                    <div className={`flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border ${isMenuOpen ? 'lg:flex' : 'flex'}`}>
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-lush-violet to-velvet-violet flex items-center justify-center">
                                 <i className="ri-sticky-note-line text-white text-sm"></i>
