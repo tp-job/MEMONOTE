@@ -2,13 +2,13 @@ import { formatDate } from "../Utils/dateFormat";
 import { useState, useEffect } from "react";
 
 const NoteViewer = ({ note, onEdit, onDelete, notes, setSelectedNote }) => {
-    // User color state
+    // State to manage the user's selected color
     const [userColor, setUserColor] = useState(() => {
         const saved = localStorage.getItem('userColor');
         return saved || 'lush-violet';
     });
 
-    // Available user colors
+    // List of available user colors
     const userColors = [
         { name: 'lush-violet', bg: 'bg-lush-violet', darkBg: 'dark:bg-velvet-violet', label: 'Violet' },
         { name: 'lush-peach', bg: 'bg-lush-peach', darkBg: 'dark:bg-misty-peach', label: 'Peach' },
@@ -18,12 +18,12 @@ const NoteViewer = ({ note, onEdit, onDelete, notes, setSelectedNote }) => {
         { name: 'deep-night', bg: 'bg-deep-night', darkBg: 'dark:bg-deep-night', label: 'Dark' },
     ];
 
-    // Save user color to localStorage
+    // Save the selected user color to localStorage
     useEffect(() => {
         localStorage.setItem('userColor', userColor);
     }, [userColor]);
 
-    // Helper functions
+    // Helper function to parse tags from a string
     const parseTags = (tagString) => {
         if (!tagString || !tagString.trim()) return [];
         return tagString
@@ -32,21 +32,27 @@ const NoteViewer = ({ note, onEdit, onDelete, notes, setSelectedNote }) => {
             .filter(tag => tag.length > 0);
     };
 
+    // Open a link in a new tab
     const handleLinkClick = (url) => {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 
+    // Change the user's selected color
     const handleColorChange = (colorName) => {
         setUserColor(colorName);
     };
 
+    // Get the current color object based on the user's selection
     const getCurrentColor = () => {
         return userColors.find(color => color.name === userColor) || userColors[0];
     };
 
+    // Parse the tags for the current note
     const noteTags = parseTags(note.tag);
+    // Get the current color object
     const currentColor = getCurrentColor();
 
+    // Find the index of the current note in the list
     const currentIndex = notes.findIndex(n => n.id === note.id);
 
     const handlePreviousNote = () => {

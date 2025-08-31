@@ -35,24 +35,26 @@ const createNote = (noteData) => ({
     updatedAt: new Date().toISOString()
 });
 
+// Custom hook to manage notes using localStorage
 export const useLocalStorage = () => {
     const [notes, setNotes] = useState(() => {
         const savedNotes = localStorage.getItem(STORAGE_KEY);
         return savedNotes ? JSON.parse(savedNotes) : [];
     });
 
-    // Save to localStorage whenever notes change
+    // Save notes to localStorage whenever they change
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
     }, [notes]);
 
-    // Note CRUD operations
+    // Add a new note to the list
     const addNote = (noteData) => {
         const newNote = createNote(noteData);
         setNotes(prev => [newNote, ...prev]);
         return newNote;
     };
 
+    // Update an existing note by ID
     const updateNote = (id, updates) => {
         setNotes(prev =>
             prev.map(note =>
@@ -63,11 +65,12 @@ export const useLocalStorage = () => {
         );
     };
 
+    // Delete a note by ID
     const deleteNote = (id) => {
         setNotes(prev => prev.filter(note => note.id !== id));
     };
 
-    // Search functionality
+    // Search notes by query
     const searchNotes = (query) => {
         const searchTerm = query.toLowerCase();
         return notes.filter(note => {
@@ -79,11 +82,12 @@ export const useLocalStorage = () => {
         });
     };
 
-    // Tag-related queries
+    // Get notes by a specific tag
     const getNotesByTag = (tag) => {
         return notes.filter(note => noteHasTag(note, tag));
     };
 
+    // Get all unique tags from notes
     const getAllTags = () => {
         const allTags = new Set();
         notes.forEach(note => {
@@ -93,12 +97,14 @@ export const useLocalStorage = () => {
         return Array.from(allTags).sort();
     };
 
+    // Get notes that have tags
     const getNotesWithTags = () => {
-        return notes.filter(note => parseTags(note.tag).length > 0);
+        return notes.filter(note => note.tag && note.tag.trim() !== '');
     };
 
+    // Get notes that do not have tags
     const getNotesWithoutTags = () => {
-        return notes.filter(note => parseTags(note.tag).length === 0);
+        return notes.filter(note => !note.tag || note.tag.trim() === '');
     };
 
     // Link-related queries

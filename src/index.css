@@ -33,6 +33,24 @@
     --color-dark-accent-hover: #b9bbe8;
 }
 
+/* Global styles for the application */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Code block styles */
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+/* Additional styles can be added here */
+
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;

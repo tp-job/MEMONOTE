@@ -9,7 +9,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
         { id: 'with-links', label: 'With Links', count: notesWithLinks || 0, icon: 'ri-links-line' }
     ];
 
-    // Helper functions
+    // Helper function to get the class for filter buttons
     const getFilterButtonClass = (filterId) => {
         const baseClass = "w-full flex items-center justify-between px-2 py-1.5 rounded-md text-left transition-all duration-200 group";
         return activeFilter === filterId
@@ -17,6 +17,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
             : `${baseClass} text-light-text dark:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 hover:shadow-sm`;
     };
 
+    // Helper function to get the class for count badges
     const getCountBadgeClass = (filterId) => {
         const baseClass = "text-xs px-2 py-0.5 rounded-full font-medium transition-all duration-200";
         return activeFilter === filterId
@@ -24,6 +25,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
             : `${baseClass} bg-light-surface-2 dark:bg-dark-surface-2 text-light-text-secondary dark:text-dark-text-secondary group-hover:bg-lush-violet/10 dark:group-hover:bg-lush-violet/20`;
     };
 
+    // Helper function to get the class for tag buttons
     const getTagButtonClass = (tag) => {
         const baseClass = "w-full flex items-center px-2 py-1.5 rounded-md text-left transition-all duration-200 group";
         return activeFilter === tag
@@ -31,20 +33,21 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
             : `${baseClass} text-light-text dark:text-dark-text hover:bg-light-surface-2 dark:hover:bg-dark-surface-2 hover:shadow-sm`;
     };
 
+    // Helper function to get the color class for tags
     const getTagColor = (tag) => {
         const colorMap = {
-            'personal': 'bg-lush-peach',
-            'work': 'bg-lush-violet',
-            'friends': 'bg-velvet-violet',
-            'ideas': 'bg-elegant-violet',
-            'important': 'bg-misty-peach',
-            'todo': 'bg-charcoal-grey',
-            'project': 'bg-deep-night'
+            'personal': 'bg-orange-400',
+            'work': 'bg-purple-500',
+            'friends': 'bg-violet-500',
+            'ideas': 'bg-indigo-400',
+            'important': 'bg-pink-400',
+            'todo': 'bg-gray-600',
+            'project': 'bg-gray-800'
         };
         return colorMap[tag] || 'bg-misty-lavender';
     };
 
-    // Render helpers
+    // Render helper for filter buttons
     const renderFilterButton = (filter) => (
         <button
             key={filter.id}
@@ -64,6 +67,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
         </button>
     );
 
+    // Render helper for tag buttons
     const renderTagButton = (tag) => (
         <button
             key={tag}
@@ -79,6 +83,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
         </button>
     );
 
+    // Render the filter section
     const renderFilters = () => (
         <div className="p-4">
             <div className="flex items-center gap-3 mb-3">
@@ -93,6 +98,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
         </div>
     );
 
+    // Render the tags section
     const renderTags = () => {
         const [showTooltip, setShowTooltip] = useState(false);
 
@@ -117,7 +123,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
                             <i className="ri-information-fill cursor-pointer text-light-text dark:text-dark-text"></i>
 
                             {showTooltip && (
-                                <div className="absolute right-0 top-6 z-50 w-32 p-2 rounded-lg shadow-xl bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 max-h-48 overflow-hidden">
+                                <div className="absolute right-0 top-6 z-50 w-32 p-2 rounded-lg shadow-xl bg-white dark:bg-dark-surface text-xs text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-dark-border max-h-48 overflow-hidden">
                                     <div className="text-xs font-semibold mb-1 text-gray-600 dark:text-gray-400">Tag Colors</div>
                                     <div className="space-y-1">
                                         {Object.entries({

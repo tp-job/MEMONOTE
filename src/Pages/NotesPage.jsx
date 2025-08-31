@@ -7,7 +7,7 @@ import Sidebar from '../Components/Sidebar';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
 
 const NotesPage = () => {
-    // State management
+    // State management for controlling the visibility of the note form and selected note
     const [showForm, setShowForm] = useState(false);
     const [editingNote, setEditingNote] = useState(null);
     const [selectedNote, setSelectedNote] = useState(null);
@@ -30,7 +30,7 @@ const NotesPage = () => {
         getNotesByTag
     } = useLocalStorage();
 
-    // Filter logic
+    // Filter logic to get notes based on the active filter or search query
     const getFilteredNotes = () => {
         if (searchQuery) {
             return searchNotes(searchQuery);
@@ -52,7 +52,7 @@ const NotesPage = () => {
         });
     };
 
-    // Event handlers
+    // Event handlers for note operations
     const handleAddNote = () => {
         setEditingNote(null);
         setShowForm(true);
