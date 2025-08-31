@@ -31,8 +31,8 @@
 
 ## Phase 4: Testing & Final (Day 13–15)
 
-- [ ] Day 13: ทดสอบ CRUD + Search กับ LocalStorage
+- ✅ Day 13: ทดสอบ CRUD + Search กับ LocalStorage
 
-- [ ] Day 14: แก้ bug / cleanup code
+- ✅ Day 14: แก้ bug / cleanup code
 
 - [ ] Day 15: Deploy บน Vercel/Netlify + เขียนคู่มือใช้งานสั้น ๆ
