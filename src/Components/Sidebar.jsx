@@ -123,7 +123,7 @@ const Sidebar = ({ activeFilter, onFilterChange, noteCount, tags, notesWithLinks
                             <i className="ri-information-fill cursor-pointer text-light-text dark:text-dark-text"></i>
 
                             {showTooltip && (
-                                <div className="absolute right-0 top-6 z-50 w-32 p-2 rounded-lg shadow-xl bg-white dark:bg-dark-surface text-xs text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-dark-border max-h-48 overflow-hidden">
+                                <div className="absolute left-10 top-6 z-50 w-32 p-2 rounded-lg shadow-xl bg-light-surface-2 dark:bg-dark-surface text-xs text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-dark-border max-h-48 overflow-hidden">
                                     <div className="text-xs font-semibold mb-1 text-gray-600 dark:text-gray-400">Tag Colors</div>
                                     <div className="space-y-1">
                                         {Object.entries({

@@ -35,4 +35,4 @@
 
 - ✅ Day 14: แก้ bug / cleanup code
 
-- [ ] Day 15: Deploy บน Vercel/Netlify + เขียนคู่มือใช้งานสั้น ๆ
+- ✅ Day 15: Deploy บน Vercel/Netlify + เขียนคู่มือใช้งานสั้น ๆ
